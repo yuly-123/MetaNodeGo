@@ -7,6 +7,6 @@ var Str2 string = Show()
 
 func Show() string {
 	Str1 += "zxcv,"
-	fmt.Print("pkg3:", Str1)
+	fmt.Print("pkg3 : ", Str1)
 	return Str1
 }
