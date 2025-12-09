@@ -16,7 +16,7 @@ func init() {
 func main() {
 	//fmt.Println("main method invoked!")
 
-	fmt.Println("main:", pkg3.Str2)
+	fmt.Println("main : ", pkg3.Str2)
 	fmt.Println(pkg3.Show())
 }
 
