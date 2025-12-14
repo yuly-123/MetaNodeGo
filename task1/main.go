@@ -10,8 +10,15 @@ func main() {
 	//a()
 	//b(12345321)
 	//c("(]")
-	d([]string{"as中", "asdf", "as123"})
+	//d([]string{"as中", "asdf", "as123"})
 	//d([]string{"asdf1", "asdf1", "asdf1"})
+	//e([4]uint64{9, 9, 9, 9})
+	//e([4]uint64{4, 3, 2, 1})
+	//f([10]int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4})
+	//g([5][2]int{{1, 3}, {15, 18}, {4, 7}, {10, 12}, {2, 6}})
+	//g([4][2]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}})
+	//g([2][2]int{{4, 7}, {1, 4}})
+	//h([4]int{2, 7, 11, 15}, 9)
 }
 
 func a() {
@@ -132,4 +139,115 @@ func d(s []string) {
 		sameRune[i] = same[i]
 	}
 	fmt.Println("公共前缀：", string(sameRune))
+}
+
+func e(digits [4]uint64) {
+	// 数组转字符串
+	var s string = ""
+	for _, v := range digits {
+		s += "" + strconv.FormatUint(v, 10)
+	}
+	fmt.Println(s)
+
+	// 字符串转数字+1后再转回字符串
+	i, _ := strconv.ParseUint(s, 10, 64)
+	i++
+	s = strconv.FormatUint(i, 10)
+	fmt.Println(s)
+
+	// 字符串转[]rune
+	var r []uint64 = make([]uint64, len(s))
+	for i := 0; i < len(s); i++ {
+		v, _ := strconv.ParseUint(string(s[i]), 10, 64)
+		r[i] = v
+
+	}
+	fmt.Println(r)
+}
+
+func f(nums [10]int) {
+	fmt.Println(nums)
+
+	var c int = 0       // 计数
+	var n int = nums[0] // 对比数
+	for i := 1; i < len(nums); i++ {
+		if n == nums[i] {
+			nums[i] = 9999
+			c++
+		} else {
+			n = nums[i]
+		}
+	}
+	fmt.Println(nums)
+
+	// 排序，从小到大，
+	for i := 0; i < len(nums)-1; i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] > nums[j] {
+				n = nums[i]
+				nums[i] = nums[j]
+				nums[j] = n
+			}
+		}
+		//fmt.Println(nums)
+	}
+	fmt.Println(nums)
+	fmt.Println(len(nums) - c)
+}
+
+func g(nums [2][2]int) {
+	fmt.Println("原始输出：", nums)
+
+	// 排序，从小到大，
+	var temp int
+	for i := 0; i < len(nums)-1; i++ {
+		for j := i + 1; j < len(nums); j++ {
+			// 第1位数相等的，第2位数排序，从小到大
+			if nums[i][0] == nums[j][0] && nums[i][1] > nums[j][1] {
+				temp = nums[i][1]
+				nums[i][1] = nums[j][1]
+				nums[j][1] = temp
+			} else if nums[i][0] > nums[j][0] {
+				temp = nums[i][0]
+				nums[i][0] = nums[j][0]
+				nums[j][0] = temp
+
+				temp = nums[i][1]
+				nums[i][1] = nums[j][1]
+				nums[j][1] = temp
+			}
+		}
+	}
+	fmt.Println("顺序输出：", nums)
+
+	var c int = 0
+	var m map[int][2]int = make(map[int][2]int)
+	for i := 0; i < len(nums)-1; i++ {
+		// if 无重合，直接进入下一个元素，再往后对比
+		// else 有重合，当前元素需要继续和下下个元素对比，
+		if nums[i][1] < nums[i+1][0] {
+			m[c] = [2]int{nums[i][0], nums[i][1]} // 收集
+			c++
+			m[c] = [2]int{nums[i+1][0], nums[i+1][1]} // 把后一个暂时也收集进来
+		} else {
+			nums[i+1][0] = nums[i][0] // 改变下一个元素的值，并收集
+			m[c] = nums[i+1]          // 收集
+		}
+	}
+
+	fmt.Println("合并输出：", m)
+}
+
+func h(nums [4]int, target int) {
+	fmt.Println(nums, target)
+
+a:
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i]+nums[j] == target {
+				fmt.Println(i, j)
+				break a
+			}
+		}
+	}
 }
