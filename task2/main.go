@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -26,15 +27,14 @@ func main() {
 	//f[2] = task3
 	//goroutine2(f)
 
-	// oo1
 	//oo1()
-	// oo2
 	//oo2()
 
-	// channel1
 	//channel1()
-	// channel2
-	channel2()
+	//channel2()
+
+	mutex_lock1()
+	//mutex_lock2()
 }
 
 // 指针
@@ -224,4 +224,46 @@ func channel2() {
 			return
 		}
 	}
+}
+
+// 锁机制
+// 题目 ：编写一个程序，使用 sync.Mutex 来保护一个共享的计数器。启动10个协程，每个协程对计数器进行1000次递增操作，最后输出计数器的值。
+// 考察点 ：sync.Mutex 的使用、并发数据安全。
+func mutex_lock1() {
+	mu := sync.Mutex{}
+	sc := SafeCounter{0}
+
+	for i := 0; i < 10; i++ {
+		go func() {
+			mu.Lock()
+			defer mu.Unlock()
+			for j := 0; j < 1000; j++ {
+				sc.c++
+			}
+		}()
+	}
+
+	time.Sleep(time.Second * 5)
+	fmt.Println(sc.c)
+}
+
+// 锁机制
+// 题目 ：使用原子操作（ sync/atomic 包）实现一个无锁的计数器。启动10个协程，每个协程对计数器进行1000次递增操作，最后输出计数器的值。
+// 考察点 ：原子操作、并发数据安全。
+func mutex_lock2() {
+	sc := SafeCounter{0}
+	for i := 0; i < 10; i++ {
+		go func() {
+			for j := 0; j < 1000; j++ {
+				sc.c++
+			}
+		}()
+	}
+
+	time.Sleep(time.Second * 5)
+	fmt.Println(sc.c)
+}
+
+type SafeCounter struct {
+	c int
 }
