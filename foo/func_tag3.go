@@ -1,5 +1,5 @@
-//go:build darwinx
-// +build darwinx
+//go:build darwin
+// +build darwin
 
 package foo
 

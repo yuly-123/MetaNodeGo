@@ -1,5 +1,5 @@
-//go:build !windowsx && !liunxx && !darwinx
-// +build !windowsx,!liunxx,!darwinx
+//go:build !windows && !liunx && !darwin
+// +build !windows,!liunx,!darwin
 
 package foo
 

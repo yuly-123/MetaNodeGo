@@ -1,5 +1,5 @@
-//go:build windowsx
-// +build windowsx
+//go:build windows
+// +build windows
 
 package foo
 

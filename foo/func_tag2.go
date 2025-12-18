@@ -1,5 +1,5 @@
-//go:build linuxx
-// +build linuxx
+//go:build linux
+// +build linux
 
 package foo
 
