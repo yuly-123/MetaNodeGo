@@ -1,0 +1,23 @@
+# .air.toml - 添加完整排除目录
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/main.exe ."
+bin = "tmp/main.exe"
+full_bin = "tmp\\main.exe"
+# 确保排除 .idea 目录
+exclude_dir = [".idea", "bin", "vendor", ".git", "node_modules", "__pycache__"]
+include_ext = ["go", "html", "tmpl", "tpl"]
+poll = true           # 启用轮询
+poll_interval = 1000  # 每1秒检查一次
+delay = 3000
+stop_on_success = false
+send_interrupt = false
+
+[log]
+time = true
+prefix = "[AIR]"
+
+[misc]
+clean_on_exit = false
