@@ -1,7 +1,9 @@
 package main
 
 import (
-	"MetaNodeGo/lesson04"
+	// "MetaNodeGo/lesson04"
+	"MetaNodeGo/goeth"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -12,5 +14,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	lesson04.Run(db)
+	// lesson04.Run(db)
+	goeth.Run(db)
 }
