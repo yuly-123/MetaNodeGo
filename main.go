@@ -3,7 +3,8 @@ package main
 import (
 	// "MetaNodeGo/lesson04"
 	// "MetaNodeGo/goeth1"
-	"MetaNodeGo/goeth2"
+	// "MetaNodeGo/goeth2"
+	"MetaNodeGo/goeth3"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -16,5 +17,5 @@ func main() {
 		panic(err)
 	}
 	// lesson04.Run(db)
-	goeth2.Run(db)
+	goeth3.Run(db)
 }
