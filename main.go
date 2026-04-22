@@ -7,7 +7,8 @@ import (
 	// "MetaNodeGo/goeth3"
 	// "MetaNodeGo/goeth4"
 	// "MetaNodeGo/goeth5"
-	"MetaNodeGo/goeth6"
+	// "MetaNodeGo/goeth6"
+	"MetaNodeGo/goeth7"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -25,5 +26,6 @@ func main() {
 	// goeth3.Run(db)
 	// goeth4.Run(db)
 	// goeth5.Run(db)
-	goeth6.Run(db)
+	// goeth6.Run(db)
+	goeth7.Run(db)
 }
