@@ -1,4 +1,4 @@
-package goeth8
+package main
 
 import (
 	"context"
@@ -19,7 +19,6 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"gorm.io/gorm"
 )
 
 // 使用通用 ABI 调用 ERC-20 合约的方法，包括：
@@ -32,6 +31,7 @@ import (
 //  1. 查询 ERC-20 代币余额：
 //     $env:ETH_RPC_URL="http://127.0.0.1:8545"
 //     go run main.go --mode balance --contract 0x5FbDB2315678afecb367f032d93F642f64180aa3 --address 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+//     go run main.go --mode balance --contract 0x5FbDB2315678afecb367f032d93F642f64180aa3 --address 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
 //
 //  2. 发送 ERC-20 转账交易（使用代币数量，自动根据 decimals 转换）：
 //     $env:ETH_RPC_URL="http://127.0.0.1:8545"
@@ -54,7 +54,7 @@ import (
 // - amount 参数支持两种格式：
 //   - 小数格式（如 "1.5"）：自动根据代币的 decimals 转换为最小单位
 //   - 整数格式（如 "1500000"）：直接作为代币的最小单位使用
-func Run(db *gorm.DB) {
+func main() {
 	fmt.Println("\n open goeth8 success \n")
 
 	mode := flag.String("mode", "balance", "operation mode: balance, transfer, or parse-event")
@@ -80,7 +80,7 @@ func Run(db *gorm.DB) {
 	defer client.Close()
 
 	// 读取 ABI
-	abiBytes, err := os.ReadFile("erc20-foundry/MyERC20.abi.json")
+	abiBytes, err := os.ReadFile("../erc20-foundry/MyERC20.abi.json")
 	if err != nil {
 		log.Fatal(err)
 	}

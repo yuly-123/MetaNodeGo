@@ -7,6 +7,7 @@ import {MyERC20} from "../src/MyERC20.sol";
 /**
  * @title DeployERC20
  * @dev 部署 ERC20 代币合约的脚本
+ * 例如：Contract Address: 0x5FbDB2315678afecb367f032d93F642f64180aa3
  */
 contract DeployERC20Script is Script {
     // 代币名称
@@ -49,4 +50,3 @@ contract DeployERC20Script is Script {
         return address(token);
     }
 }
-
